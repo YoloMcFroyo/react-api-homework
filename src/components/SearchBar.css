@@ -1,0 +1,14 @@
+.search-input::placeholder {
+    color: #486e75;
+    animation: placeholderFade 4s ease-in-out infinite;
+}
+
+@keyframes placeholderFade {
+    0%, 100% {
+        opacity: 0;
+    }
+
+    15%, 85% {
+        opacity: 0.65;
+    }
+}
