@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import TypeSearch from './components/TypeSearch';
 import PokemonResults from './components/PokemonResults';
 import PokemonDetails from './components/PokemonDetails';
+import './app.css';
 
 function App() {
   const [query, setQuery] = useState(null);
@@ -27,7 +28,18 @@ function App() {
       if (!ignore) {
         const pokemon = query.kind === 'pokemon'
           ? [data]
-          : data.pokemon.map(item => item.pokemon);
+          : data.pokemon.map(item => {
+            const p = item.pokemon;
+            const id = p.url.split('/').filter(Boolean).pop();
+
+            //find pics of pokemon seperately - API doesnt give sprites when called as a collection
+            return {
+              ...p,
+              sprites: {
+                front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+              }
+            };
+          });
 
         if (!ignore) {
           setResults(pokemon);
@@ -47,14 +59,17 @@ function App() {
   if (selectedPokemon) {
     return <PokemonDetails name={selectedPokemon} />;
   }
-  
+
   return (
-    <>
+    <div className='main'>
+      <h1>Pokédex</h1>
+      <p>Search for a Pokémon by name or browse by type.</p>
+      <img src='./src/assets/Pokeball.png' />
       <SearchBar onSearch={value => setQuery({ kind: 'pokemon', value })} />
       <TypeSearch onSearch={value => setQuery({ kind: 'type', value })} />
 
       <PokemonResults pokemon={results} />
-    </>
+    </div>
   );
 }
 
