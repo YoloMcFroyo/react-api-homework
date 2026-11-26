@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import TypeSearch from './components/TypeSearch';
 import PokemonResults from './components/PokemonResults';
 import PokemonDetails from './components/PokemonDetails';
+import pokeball from './assets/Pokeball.png';
 import './app.css';
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
     <div className='main'>
       <h1>Pokédex</h1>
       <p>Search for a Pokémon by name or browse by type.</p>
-      <img src='./src/assets/Pokeball.png' />
+      <img src={pokeball} alt="Poké Ball"/>
       <SearchBar onSearch={value => setQuery({ kind: 'pokemon', value })} />
       <TypeSearch onSearch={value => setQuery({ kind: 'type', value })} />
 
