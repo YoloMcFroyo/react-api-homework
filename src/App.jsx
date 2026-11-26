@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import SearchBar from './components/SearchBar';
 import TypeSearch from './components/TypeSearch';
 import PokemonResults from './components/PokemonResults';
+import PokemonDetails from './components/PokemonDetails';
 
 function App() {
   const [query, setQuery] = useState(null);
@@ -41,6 +42,12 @@ function App() {
     };
   }, [query]);
 
+  const selectedPokemon = new URLSearchParams(window.location.search).get('pokemon');
+
+  if (selectedPokemon) {
+    return <PokemonDetails name={selectedPokemon} />;
+  }
+  
   return (
     <>
       <SearchBar onSearch={value => setQuery({ kind: 'pokemon', value })} />
